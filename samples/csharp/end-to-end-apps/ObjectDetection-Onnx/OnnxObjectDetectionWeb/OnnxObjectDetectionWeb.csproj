@@ -41,11 +41,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="ML\MLNETModel\c197211d3765442f92fc3e14aabd009b.ONNX.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="ML\MLNETModel\Readme.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="ImagesTemp\Readme.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="ML\OnnxModels\model.onnx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>    
   </ItemGroup>
 

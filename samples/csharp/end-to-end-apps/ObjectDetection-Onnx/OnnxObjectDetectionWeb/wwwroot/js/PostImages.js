@@ -1,4 +1,4 @@
-﻿
+﻿var coOrdinates = "";
 $(function () {
     $("#resultImagediv").css('background', 'lightgray'); 
 
@@ -15,7 +15,6 @@ $(function () {
                 $("#resultImagediv").css('background', 'none'); 
                 var data = result.imageString;
                 $("#result").attr("src", 'data:image/jpeg;base64,' + data);
-
             },
             error: function (e) {
                 var x = e;
@@ -48,6 +47,11 @@ form.addEventListener('submit', e => {
             success: function (result) {
                 var data = result.imageString;
                 $("#result").attr("src", 'data:image/jpeg;base64,' + data);
+                var areaHtml = "";
+                $(result.maps).each(function () {
+                    areaHtml += '<area title="'+this+'" href="#" coords="' + this + '" shape="rect">';
+                });
+                $("[name='image-map']").append(areaHtml);
             }
         });
     }
