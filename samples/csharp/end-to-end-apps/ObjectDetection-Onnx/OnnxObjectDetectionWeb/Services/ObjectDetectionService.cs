@@ -11,6 +11,8 @@ namespace OnnxObjectDetectionWeb.Services
     {
         void DetectObjectsUsingModel(ImageInputData imageInputData);
         Image DrawBoundingBox(string imageFilePath);
+        List<string> GetImageCoordinates(string imageFilePath);
+
     }
 
     public class ObjectDetectionService : IObjectDetectionService
@@ -75,6 +77,32 @@ namespace OnnxObjectDetectionWeb.Services
                 }
             }
             return image;
+        }
+
+        public List<string> GetImageCoordinates(string imageFilePath)
+        {
+            Image image = Image.FromFile(imageFilePath);
+            var originalHeight = image.Height;
+            var originalWidth = image.Width;
+            List<string> coOrdinates = new List<string>();
+            foreach (var box in filteredBoxes)
+            {
+                //// process output boxes
+                var x = (uint)Math.Max(box.Dimensions.X, 0);
+                var y = (uint)Math.Max(box.Dimensions.Y, 0);
+                var width = (uint)Math.Min(originalWidth - x, box.Dimensions.Width);
+                var height = (uint)Math.Min(originalHeight - y, box.Dimensions.Height);
+
+                // fit to current image size
+                x = (uint)originalWidth * x / ImageSettings.imageWidth;
+                y = (uint)originalHeight * y / ImageSettings.imageHeight;
+                width = (uint)originalWidth * width / ImageSettings.imageWidth;
+                height = (uint)originalHeight * height / ImageSettings.imageHeight;
+
+                coOrdinates.Add($"{x},{y},{x + width},{y + height}");
+            }
+            image.Dispose();
+            return coOrdinates;
         }
     }
 }

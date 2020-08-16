@@ -10,6 +10,8 @@ using OnnxObjectDetectionWeb.Infrastructure;
 using OnnxObjectDetectionWeb.Services;
 using OnnxObjectDetectionWeb.Utilities;
 using OnnxObjectDetection;
+using System.Collections.Generic;
+using OnnxObjectDetectionWeb.Models;
 
 namespace OnnxObjectDetectionWeb.Controllers
 {
@@ -30,11 +32,7 @@ namespace OnnxObjectDetectionWeb.Controllers
             _logger = logger;
             _imagesTmpFolder = CommonHelpers.GetAbsolutePath(@"../../../ImagesTemp");
         }
-
-        public class Result
-        {
-            public string imageString { get; set; }
-        }
+       
 
         [HttpGet()]
         public IActionResult Get([FromQuery]string url)
@@ -119,6 +117,7 @@ namespace OnnxObjectDetectionWeb.Controllers
             //Predict the objects in the image
             _objectDetectionService.DetectObjectsUsingModel(imageInputData);
             var img = _objectDetectionService.DrawBoundingBox(imageFilePath);
+            var coOrdinates = _objectDetectionService.GetImageCoordinates(imageFilePath);
 
             using (MemoryStream m = new MemoryStream())
             {
@@ -127,7 +126,9 @@ namespace OnnxObjectDetectionWeb.Controllers
 
                 // Convert byte[] to Base64 String
                 base64String = Convert.ToBase64String(imageBytes);
-                var result = new Result { imageString = base64String };
+
+
+                var result = new Result { imageString = base64String, maps= coOrdinates };
                 return result;
             }
         }

@@ -1,5 +1,5 @@
 ﻿@page
-@model IndexModel
+@model OnnxObjectDetectionWeb.Models.Result
 @{
     ViewData["Title"] = "Home page";
 }
@@ -57,7 +57,10 @@
     </div>
     <div class="row">
         <div id="resultImagediv" class="col-sm-6">
-            <img id="result" />
+            <img id="result" usemap="#image-map" />
+            <map name="image-map">
+                
+            </map>
         </div>
         <div class="col-sm-6" id="imDiv">
             <ul id="imagesUL"></ul>
