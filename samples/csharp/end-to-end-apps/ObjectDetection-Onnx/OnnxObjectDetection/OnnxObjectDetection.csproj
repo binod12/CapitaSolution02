@@ -14,9 +14,6 @@
     <None Update="ML\OnnxModels\c197211d3765442f92fc3e14aabd009b.ONNX.zip">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="ML\OnnxModels\model.onnx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="ML\OnnxModels\TinyYolo2_model.onnx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -4,7 +4,7 @@ namespace OnnxObjectDetection
 {
     public class TinyYoloPrediction : IOnnxObjectPrediction
     {
-        [ColumnName("grid")]
+        [ColumnName("model_outputs0")]
         public float[] PredictedLabels { get; set; }
     }
 }
